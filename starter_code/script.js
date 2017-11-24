@@ -12,17 +12,17 @@ window.onload = function() {
     setInterval(this.addBar.bind(this), 1000);
   }
 
+  startGame.prototype.isReady = function() {
+    return this.mario.isReady();
+  };
+
   startGame.prototype.addBar = function() {
-  this.bars.push(new Bar(this.canvas, 10, 100));
-};
+    this.bars.push(new Bar(this.canvas, 10, 100));
+  };
 
   startGame.prototype.clear = function() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   };
-
-  startGame.prototype.clear = function() {
-  this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-};
 
   startGame.prototype.draw = function() {
     this.clear();
@@ -37,12 +37,11 @@ window.onload = function() {
     this.ctx.fillStyle = '#008100';
     this.ctx.fillRect(770, 0, 60, 900);
 
-    this.clear();
-  if (this.isReady()) {
-    for (var i = 0; i < this.bars.length; i++) {
-      this.bars[i].draw();
+    if (this.isReady()) {
+      for (var i = 0; i < this.bars.length; i++) {
+        this.bars[i].draw();
+      }
     }
-  }
     window.requestAnimationFrame(this.draw.bind(this));
   };
 
