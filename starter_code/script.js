@@ -1,53 +1,52 @@
 window.onload = function() {
-  document.getElementById("start-button").onclick = function() {
-    startGame();
-  };
+  var game = new Game("canvasId");
 
-  function startGame(canvasId) {
+  document.getElementById("start-button").onclick = function() {
+    game.startGame();
+  };
+};
+
+  function Game(canvasId) {
     this.canvas = document.getElementById(canvasId);
     this.ctx = this.canvas.getContext('2d');
-
+    this.car = new Car("canvasId", "images/car.png");
     this.bars = [];
-
-    setInterval(this.addBar.bind(this), 1000);
   }
 
-  startGame.prototype.isReady = function() {
-    return this.mario.isReady();
+  Game.prototype.addBar = function() {
+    var that = this;
+    setInterval(function() {
+      that.bars.push(new Bar(that.canvas));
+    }, 300);
   };
 
-  startGame.prototype.addBar = function() {
-    this.bars.push(new Bar(this.canvas, 10, 100));
-  };
-
-  startGame.prototype.clear = function() {
+  Game.prototype.clear = function() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   };
 
-  startGame.prototype.draw = function() {
+  Game.prototype.startGame = function() {
     this.clear();
-    this.ctx.fillStyle = '#008100';
-    this.ctx.fillRect(0, 0, 60, 900);
-    this.ctx.fillStyle = '#808080';
-    this.ctx.fillRect(60, 0, 15, 900);
-    this.ctx.fillStyle = '#808080';
-    this.ctx.fillRect(90, 0, 650, 900);
-    this.ctx.fillStyle = '#808080';
-    this.ctx.fillRect(755, 0, 15, 900);
-    this.ctx.fillStyle = '#008100';
-    this.ctx.fillRect(770, 0, 60, 900);
+    setInterval(function( ) {
+      this.draw();
+    }.bind(this), 1000/60);
+    this.addBar();
 
-    if (this.isReady()) {
-      for (var i = 0; i < this.bars.length; i++) {
-        this.bars[i].draw();
-      }
-    }
-    window.requestAnimationFrame(this.draw.bind(this));
   };
 
-  var game = new startGame("canvasId");
-  game.draw();
-
-  var bars = new Bar(game);
-  bars.draw();
-};
+  Game.prototype.draw = function() {
+    this.clear();
+    this.ctx.fillStyle = '#008100';
+    this.ctx.fillRect(0, 0, 40, 590);
+    this.ctx.fillStyle = '#808080';
+    this.ctx.fillRect(40, 0, 10, 590);
+    this.ctx.fillStyle = '#808080';
+    this.ctx.fillRect(60, 0, 400, 590);
+    this.ctx.fillStyle = '#808080';
+    this.ctx.fillRect(470, 0, 10, 590);
+    this.ctx.fillStyle = '#008100';
+    this.ctx.fillRect(480, 0, 40, 590);
+    for (var i = 0; i < this.bars.length; i++) {
+      this.bars[i].draw();
+    }
+    this.car.draw();
+  };
