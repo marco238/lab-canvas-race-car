@@ -1,9 +1,38 @@
+var RIGHT_KEY = 39;
+var LEFT_KEY = 37;
+var UP_KEY = 38;
+var DOWN_KEY = 40;
+
 window.onload = function() {
   var game = new Game("canvasId");
 
   document.getElementById("start-button").onclick = function() {
     game.startGame();
   };
+
+  document.addEventListener("keydown", function(event) {
+    if (event.keyCode == RIGHT_KEY) {
+      game.car.moveRight();
+    }
+  });
+
+  document.addEventListener("keydown", function(event) {
+    if (event.keyCode == LEFT_KEY) {
+      game.car.moveLeft();
+    }
+  });
+
+  document.addEventListener("keydown", function(event) {
+    if (event.keyCode == UP_KEY) {
+      game.car.moveUp();
+    }
+  });
+
+  document.addEventListener("keydown", function(event) {
+    if (event.keyCode == DOWN_KEY) {
+      game.car.moveDown();
+    }
+  });
 };
 
   function Game(canvasId) {
@@ -28,6 +57,7 @@ window.onload = function() {
     this.clear();
     setInterval(function( ) {
       this.draw();
+      this.car.draw();
     }.bind(this), 1000/60);
     this.addBar();
 
@@ -48,5 +78,4 @@ window.onload = function() {
     for (var i = 0; i < this.bars.length; i++) {
       this.bars[i].draw();
     }
-    this.car.draw();
   };
