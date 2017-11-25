@@ -2,6 +2,7 @@ var RIGHT_KEY = 39;
 var LEFT_KEY = 37;
 var UP_KEY = 38;
 var DOWN_KEY = 40;
+var randomNum;
 
 window.onload = function() {
   var game = new Game("canvasId");
@@ -40,6 +41,7 @@ window.onload = function() {
     this.ctx = this.canvas.getContext('2d');
     this.car = new Car("canvasId", "images/car.png");
     this.bars = [];
+    this.cops = [];
   }
 
   Game.prototype.addBar = function() {
@@ -47,6 +49,13 @@ window.onload = function() {
     setInterval(function() {
       that.bars.push(new Bar(that.canvas));
     }, 300);
+  };
+
+  Game.prototype.addPolice = function() {
+    var that = this;
+    setInterval(function() {
+      that.cops.push(new Police(that.canvas));
+    }, 3000);
   };
 
   Game.prototype.clear = function() {
@@ -60,7 +69,7 @@ window.onload = function() {
       this.car.draw();
     }.bind(this), 1000/60);
     this.addBar();
-
+    this.addPolice();
   };
 
   Game.prototype.draw = function() {
@@ -77,5 +86,8 @@ window.onload = function() {
     this.ctx.fillRect(480, 0, 40, 590);
     for (var i = 0; i < this.bars.length; i++) {
       this.bars[i].draw();
+    }
+    for (var j = 0; j < this.cops.length; j++) {
+      this.cops[j].draw();
     }
   };

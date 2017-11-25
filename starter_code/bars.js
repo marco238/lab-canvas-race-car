@@ -14,7 +14,3 @@ Bar.prototype.draw = function() {
   this.y += 10;
   this.ctx.restore();
 };
-
-Bar.prototype.clear = function() {
-  this.ctx.clearRect(this.x, this.y, this.width, this.height);
-};
