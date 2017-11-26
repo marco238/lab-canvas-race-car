@@ -4,13 +4,13 @@ function Bar(canvas) {
   this.x = (this.canvas.width / 2) - 7;
   this.y = -50;
   this.width = 15;
-  this.height = 50;
+  this.height = 70;
 }
 
 Bar.prototype.draw = function() {
   this.ctx.save();
   this.ctx.fillStyle = "rgb(255, 255, 255)";
   this.ctx.fillRect(this.x, this.y, this.width, this.height);
-  this.y += 10;
+  this.y += 15;
   this.ctx.restore();
 };

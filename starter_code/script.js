@@ -39,7 +39,8 @@ window.onload = function() {
   function Game(canvasId) {
     this.canvas = document.getElementById(canvasId);
     this.ctx = this.canvas.getContext('2d');
-    this.car = new Car("canvasId", "images/car.png");
+    this.car = new Car("canvasId");
+    this.plane = new Plane(this.canvas);
     this.bars = [];
     this.cops = [];
   }
@@ -67,6 +68,7 @@ window.onload = function() {
     setInterval(function( ) {
       this.draw();
       this.car.draw();
+      this.plane.draw();
     }.bind(this), 1000/60);
     this.addBar();
     this.addPolice();
