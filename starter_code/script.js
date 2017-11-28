@@ -65,7 +65,7 @@ window.onload = function() {
 
   Game.prototype.startGame = function() {
     this.clear();
-    var intervalId = setInterval(function( ) {
+    this.intervalId = setInterval(function( ) {
       this.draw();
       this.car.draw();
       this.plane.draw();
@@ -91,8 +91,11 @@ window.onload = function() {
     }
     for (var j = 0; j < this.cops.length; j++) {
       this.cops[j].draw();
-      if (this.cops[j].y == (this.car.y - this.car.sprite.height * 0.2)) {
-        clearInterval(intervalId);
+      if ((parseInt(this.cops[j].y) + 115 > parseInt(this.car.y) - 115) &&
+          (parseInt(this.cops[j].y) - 115 < parseInt(this.car.y) + 115) &&
+          (parseInt(this.cops[j].x) + 25 > parseInt(this.car.x) - 25) &&
+          (parseInt(this.cops[j].x) - 25 < parseInt(this.car.x) + 25)) {
+        clearInterval(this.intervalId);
       }
     }
   };
